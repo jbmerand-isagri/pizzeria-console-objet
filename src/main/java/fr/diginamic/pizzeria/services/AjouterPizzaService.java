@@ -6,6 +6,7 @@ package fr.diginamic.pizzeria.services;
 import java.util.Scanner;
 
 import fr.diginamic.pizzeria.dao.IPizzaDao;
+import fr.diginamic.pizzeria.exception.SavePizzaException;
 import fr.diginamic.pizzeria.model.Pizza;
 
 /**
@@ -17,21 +18,20 @@ import fr.diginamic.pizzeria.model.Pizza;
 public class AjouterPizzaService extends MenuService {
 
 	@Override
-	public void executeUC(Scanner scanner, IPizzaDao dao) {
+	public void executeUC(Scanner scanner, IPizzaDao dao) throws SavePizzaException {
 		System.out.println("*** Ajout d'une nouvelle pizza ***");
 		System.out.println("Veuillez saisir le code :");
 		String choixCode = scanner.nextLine();
-		if (!dao.pizzaExists(choixCode)) {
-			System.out.println("Veuillez saisir le nom (sans espace) :");
-			String choixNom = scanner.nextLine();
-			System.out.println("Veuillez saisir le prix :");
-			Double choixPrix = Double.parseDouble(scanner.nextLine());
-			Pizza nouvellePizza = new Pizza(choixCode, choixNom, choixPrix);
-			dao.saveNewPizza(nouvellePizza);
-			System.out.println("-> Pizza ajoutée.");
-		} else {
-			System.out.println("Err : ce code est déjà utilisé pour une autre pizza !!");
+		if (dao.pizzaExists(choixCode)) {
+			throw new SavePizzaException("Ce code est déjà utilisé pour une autre pizza.");
 		}
+		System.out.println("Veuillez saisir le nom (sans espace) :");
+		String choixNom = scanner.nextLine();
+		System.out.println("Veuillez saisir le prix :");
+		Double choixPrix = Double.parseDouble(scanner.nextLine());
+		Pizza nouvellePizza = new Pizza(choixCode, choixNom, choixPrix);
+		dao.saveNewPizza(nouvellePizza);
+		System.out.println("-> Pizza ajoutée.");
 
 	}
 }

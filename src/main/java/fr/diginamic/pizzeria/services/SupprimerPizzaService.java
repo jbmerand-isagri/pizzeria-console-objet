@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import fr.diginamic.pizzeria.dao.IPizzaDao;
+import fr.diginamic.pizzeria.exception.DeletePizzaException;
 import fr.diginamic.pizzeria.model.Pizza;
 
 /**
@@ -18,7 +19,7 @@ import fr.diginamic.pizzeria.model.Pizza;
 public class SupprimerPizzaService extends MenuService {
 
 	@Override
-	public void executeUC(Scanner scanner, IPizzaDao dao) {
+	public void executeUC(Scanner scanner, IPizzaDao dao) throws DeletePizzaException {
 		System.out.println("*** Suppression d'une pizza ***");
 		// affichage des pizzas
 		List<Pizza> listeDesPizzas = dao.findAllPizzas();
@@ -28,6 +29,9 @@ public class SupprimerPizzaService extends MenuService {
 		//
 		System.out.println("Veuillez choisir le code de la pizza à supprimer.");
 		String choixCode = scanner.nextLine().toUpperCase();
+		if (!dao.pizzaExists(choixCode)) {
+			throw new DeletePizzaException("Ce code n'existe pas.");
+		}
 		dao.deletePizza(choixCode);
 	}
 

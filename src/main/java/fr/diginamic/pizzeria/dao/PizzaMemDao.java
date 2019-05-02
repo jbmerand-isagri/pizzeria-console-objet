@@ -62,12 +62,8 @@ public class PizzaMemDao implements IPizzaDao {
 
 	@Override
 	public void deletePizza(String codePizza) {
-		if (pizzaExists(codePizza)) {
-			listeDesPizzas.remove(findPizzaByCode(codePizza));
-			System.out.println("-> Pizza supprimée.");
-		} else {
-			System.out.println("Err : cette pizza n'existe pas !!");
-		}
+		listeDesPizzas.remove(findPizzaByCode(codePizza));
+		System.out.println("-> Pizza supprimée.");
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import fr.diginamic.pizzeria.dao.IPizzaDao;
+import fr.diginamic.pizzeria.exception.UpdateException;
 import fr.diginamic.pizzeria.model.Pizza;
 
 /**
@@ -18,7 +19,7 @@ import fr.diginamic.pizzeria.model.Pizza;
 public class ModifierPizzaService extends MenuService {
 
 	@Override
-	public void executeUC(Scanner scanner, IPizzaDao dao) {
+	public void executeUC(Scanner scanner, IPizzaDao dao) throws UpdateException {
 		System.out.println("*** Mise à jour d'une pizza ***");
 		// affichage des pizzas
 		List<Pizza> listeDesPizzas = dao.findAllPizzas();
@@ -29,21 +30,20 @@ public class ModifierPizzaService extends MenuService {
 		System.out.println("Veuillez choisir le code de la pizza à modifier.");
 		String choixCode = scanner.nextLine().toUpperCase();
 		// continuer que si la pizza existe bien
-		if (dao.pizzaExists(choixCode)) {
-			// choix des nouvelles informations
-			System.out.println("Veuillez saisir le nouveau code");
-			String nouveauCode = scanner.nextLine();
-			if (!dao.pizzaExists(nouveauCode)) {
-				System.out.println("Veuillez saisir le nouveau nom (sans espace)");
-				String nouveauNom = scanner.nextLine();
-				System.out.println("Veuillez saisir le nouveau prix");
-				Double nouveauPrix = Double.parseDouble(scanner.nextLine());
-				// création et envoie de la nouvelle pizza
-				Pizza nouvellePizza = new Pizza(nouveauCode, nouveauNom, nouveauPrix);
-				dao.updatePizza(choixCode, nouvellePizza);
-			}
-		} else {
-			System.out.println("Err : cette pizza n'existe pas !!");
+		if (!dao.pizzaExists(choixCode)) {
+			throw new UpdateException("Cette pizza n'existe pas.");
+		}
+		// choix des nouvelles informations
+		System.out.println("Veuillez saisir le nouveau code");
+		String nouveauCode = scanner.nextLine();
+		if (!dao.pizzaExists(nouveauCode)) {
+			System.out.println("Veuillez saisir le nouveau nom (sans espace)");
+			String nouveauNom = scanner.nextLine();
+			System.out.println("Veuillez saisir le nouveau prix");
+			Double nouveauPrix = Double.parseDouble(scanner.nextLine());
+			// création et envoie de la nouvelle pizza
+			Pizza nouvellePizza = new Pizza(nouveauCode, nouveauNom, nouveauPrix);
+			dao.updatePizza(choixCode, nouvellePizza);
 		}
 
 	}

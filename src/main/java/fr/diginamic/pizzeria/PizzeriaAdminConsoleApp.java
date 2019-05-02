@@ -3,6 +3,9 @@ package fr.diginamic.pizzeria;
 import java.util.Scanner;
 
 import fr.diginamic.pizzeria.dao.PizzaMemDao;
+import fr.diginamic.pizzeria.exception.DeletePizzaException;
+import fr.diginamic.pizzeria.exception.SavePizzaException;
+import fr.diginamic.pizzeria.exception.UpdateException;
 import fr.diginamic.pizzeria.services.AjouterPizzaService;
 import fr.diginamic.pizzeria.services.ListerPizzaService;
 import fr.diginamic.pizzeria.services.ModifierPizzaService;
@@ -49,16 +52,28 @@ public class PizzeriaAdminConsoleApp {
 				listerService.executeUC(scanner, dao);
 				break;
 			case 2:
-				AjouterPizzaService ajouterService = new AjouterPizzaService();
-				ajouterService.executeUC(scanner, dao);
+				try {
+					AjouterPizzaService ajouterService = new AjouterPizzaService();
+					ajouterService.executeUC(scanner, dao);
+				} catch (SavePizzaException e) {
+					System.out.println(e.getMessage());
+				}
 				break;
 			case 3:
-				ModifierPizzaService modifierService = new ModifierPizzaService();
-				modifierService.executeUC(scanner, dao);
+				try {
+					ModifierPizzaService modifierService = new ModifierPizzaService();
+					modifierService.executeUC(scanner, dao);
+				} catch (UpdateException e) {
+					System.out.println(e.getMessage());
+				}
 				break;
 			case 4:
-				SupprimerPizzaService supprimerService = new SupprimerPizzaService();
-				supprimerService.executeUC(scanner, dao);
+				try {
+					SupprimerPizzaService supprimerService = new SupprimerPizzaService();
+					supprimerService.executeUC(scanner, dao);
+				} catch (DeletePizzaException e) {
+					System.out.println(e.getMessage());
+				}
 				break;
 			case 99:
 				System.out.println("Au revoir :-)");

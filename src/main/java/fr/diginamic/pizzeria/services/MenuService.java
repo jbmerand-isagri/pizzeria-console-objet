@@ -6,6 +6,7 @@ package fr.diginamic.pizzeria.services;
 import java.util.Scanner;
 
 import fr.diginamic.pizzeria.dao.IPizzaDao;
+import fr.diginamic.pizzeria.exception.StockageException;
 
 /**
  * Classe mère des services CRUD liés à l'application.
@@ -25,6 +26,6 @@ public abstract class MenuService {
 	 *            contenant la liste des pizzas et les méthodes CRUD agissant sur
 	 *            cette liste
 	 */
-	abstract void executeUC(Scanner scanner, IPizzaDao dao);
+	abstract void executeUC(Scanner scanner, IPizzaDao dao) throws StockageException;
 
 }
