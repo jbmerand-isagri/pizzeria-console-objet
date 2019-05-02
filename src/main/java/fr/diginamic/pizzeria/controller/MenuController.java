@@ -56,7 +56,10 @@ public class MenuController {
 		System.out.println("Liste des pizzas");
 		for (int i = 0; i < PizzeriaAdminConsoleApp.listeDesPizzas.size(); i++) {
 			Pizza pizza = PizzeriaAdminConsoleApp.listeDesPizzas.get(i);
-			System.out.println(pizza.getCode() + " -> " + pizza.getLibelle() + " (" + pizza.getPrix() + " €)");
+			System.out.println(PizzeriaAdminConsoleApp.listeDesPizzas.get(i).toString());
+			// System.out.println(pizza.getCode() + " -> " + pizza.getLibelle() + " (" +
+			// pizza.getPrix() + " €)");
+
 		}
 
 		// Stocks pizzaStock = new Stocks();
@@ -88,7 +91,7 @@ public class MenuController {
 		System.out.println("Mise à jour d'une pizza");
 		for (int i = 0; i < PizzeriaAdminConsoleApp.listeDesPizzas.size(); i++) {
 			Pizza pizza = PizzeriaAdminConsoleApp.listeDesPizzas.get(i);
-			System.out.println(pizza.getCode() + " -> " + pizza.getLibelle() + " (" + pizza.getPrix() + " €)");
+			System.out.println(PizzeriaAdminConsoleApp.listeDesPizzas.get(i).toString());
 		}
 		System.out.println("Veuillez choisir le code de la pizza à modifier.");
 		String choixCode = scanner.nextLine().toUpperCase();
