@@ -5,11 +5,15 @@ package fr.diginamic.pizzeria.view;
 
 import java.util.Scanner;
 
+import fr.diginamic.pizzeria.controller.MenuController;
+
 /**
  * @author Jean-Baptiste
  *
  */
 public class Menu {
+
+	Scanner scanner;
 
 	/**
 	 * Affiche les options d'administration du menu.
@@ -24,13 +28,16 @@ public class Menu {
 	}
 
 	/**
-	 * Recueille le choix du menu opéré par l'utilisateur.
+	 * Recueille le choix du menu opéré par l'utilisateur et le fait traiter au
+	 * controller.
 	 * 
 	 * @return int numero du menu
 	 */
-	public int recueillirChoixUtilisateur() {
+	public void recueillirChoixUtilisateur() {
 		Scanner scanner = new Scanner(System.in);
-		return Integer.parseInt(scanner.nextLine());
+		int choixUtilisateur = Integer.parseInt(scanner.nextLine());
+		MenuController menuController = new MenuController(choixUtilisateur);
+		menuController.executeChoix();
 	}
 
 }

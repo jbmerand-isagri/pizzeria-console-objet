@@ -4,6 +4,8 @@
 package fr.diginamic.pizzeria.model;
 
 /**
+ * Représente une pizza.
+ * 
  * @author Jean-Baptiste
  *
  */
@@ -137,5 +139,10 @@ public class Pizza {
 	 */
 	public static void setIdCount(int idCount) {
 		Pizza.idCount = idCount;
+	}
+
+	@Override
+	public String toString() {
+		return code + " -> " + libelle + "(" + prix + " €)";
 	}
 }
