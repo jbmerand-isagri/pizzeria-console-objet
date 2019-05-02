@@ -6,7 +6,7 @@ package fr.diginamic.pizzeria.services;
 import java.util.List;
 import java.util.Scanner;
 
-import fr.diginamic.pizzeria.dao.PizzaMemDao;
+import fr.diginamic.pizzeria.dao.IPizzaDao;
 import fr.diginamic.pizzeria.model.Pizza;
 
 /**
@@ -18,7 +18,7 @@ import fr.diginamic.pizzeria.model.Pizza;
 public class ListerPizzaService extends MenuService {
 
 	@Override
-	public void executeUC(Scanner scanner, PizzaMemDao dao) {
+	public void executeUC(Scanner scanner, IPizzaDao dao) {
 		System.out.println("*** Liste des pizzas ***");
 		List<Pizza> listeDesPizzas = dao.findAllPizzas();
 		for (int i = 0; i < listeDesPizzas.size(); i++) {

@@ -5,7 +5,7 @@ package fr.diginamic.pizzeria.services;
 
 import java.util.Scanner;
 
-import fr.diginamic.pizzeria.dao.PizzaMemDao;
+import fr.diginamic.pizzeria.dao.IPizzaDao;
 import fr.diginamic.pizzeria.model.Pizza;
 
 /**
@@ -17,7 +17,7 @@ import fr.diginamic.pizzeria.model.Pizza;
 public class AjouterPizzaService extends MenuService {
 
 	@Override
-	public void executeUC(Scanner scanner, PizzaMemDao dao) {
+	public void executeUC(Scanner scanner, IPizzaDao dao) {
 		System.out.println("*** Ajout d'une nouvelle pizza ***");
 		System.out.println("Veuillez saisir le code :");
 		String choixCode = scanner.nextLine();
