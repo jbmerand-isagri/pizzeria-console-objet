@@ -11,10 +11,15 @@ package fr.diginamic.pizzeria.model;
  */
 public class Pizza {
 
+	/** id : Integer pour authentifier la pizza (id unique) */
 	private Integer id;
+	/** code : String code unique de dénomination de la pizza */
 	private String code;
+	/** libelle : String nom de la pizza */
 	private String libelle;
+	/** prix : Double prix en € de la pizza */
 	private Double prix;
+	/** idCount : int compteur pour gérer les id */
 	private static int idCount = 0;
 
 	/**

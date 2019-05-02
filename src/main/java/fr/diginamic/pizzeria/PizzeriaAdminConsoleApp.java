@@ -1,46 +1,73 @@
 package fr.diginamic.pizzeria;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-import fr.diginamic.pizzeria.model.Pizza;
-import fr.diginamic.pizzeria.view.Menu;
+import fr.diginamic.pizzeria.dao.PizzaMemDao;
+import fr.diginamic.pizzeria.services.AjouterPizzaService;
+import fr.diginamic.pizzeria.services.ListerPizzaService;
+import fr.diginamic.pizzeria.services.ModifierPizzaService;
+import fr.diginamic.pizzeria.services.SupprimerPizzaService;
 
 /**
- * Hello world!
+ * Classe principale, d'entrée, de l'application Pizzeria.
+ * 
+ * @author Jean-Baptiste
  *
  */
 public class PizzeriaAdminConsoleApp {
 
-	public static ArrayList<Pizza> listeDesPizzas;
-
+	/**
+	 * Point d'entrée d'exécution de l'application pizzeria
+	 * 
+	 * @param args
+	 *            non utilisés
+	 */
 	public static void main(String[] args) {
 
-		Pizza pizza1 = new Pizza(0, "PEP", "Pépéroni", 12.50);
-		Pizza pizza2 = new Pizza(1, "MAR", "Margherita", 14.00);
-		Pizza pizza3 = new Pizza(2, "REIN", "La Reine", 11.50);
-		Pizza pizza4 = new Pizza(3, "FRO", "La 4 fromage", 12.00);
-		Pizza pizza5 = new Pizza(4, "CAN", "La cannibale", 12.50);
-		Pizza pizza6 = new Pizza(5, "SAV", "La savoyarde", 13.00);
-		Pizza pizza7 = new Pizza(6, "ORI", "L'orientale", 13.50);
-		Pizza pizza8 = new Pizza(7, "IND", "L'indienne", 14.00);
-
-		listeDesPizzas = new ArrayList<>();
-
-		listeDesPizzas.addAll(Arrays.asList(pizza1, pizza2, pizza3, pizza4, pizza5, pizza6, pizza7, pizza8));
-
-		programmeCRUD();
-	}
-
-	/**
-	 * Lance l'interface de gestion des stocks de pizzas.
-	 */
-	public static void programmeCRUD() {
+		// initialisation du scanner
 		Scanner scanner = new Scanner(System.in);
-		Menu menu = new Menu();
-		menu.afficherMenu();
-		menu.recueillirChoixUtilisateur();
 
+		// initialisation du DAO
+		PizzaMemDao dao = new PizzaMemDao();
+
+		int choixUtilisateur = 0;
+
+		while (choixUtilisateur != 99) {
+			// afficher les options d'administration du menu
+			System.out.println("***** Pizzeria Administration *****");
+			System.out.println("1. Lister les pizzas");
+			System.out.println("2. Ajouter une nouvelle pizza");
+			System.out.println("3. Mettre à jour une pizza");
+			System.out.println("4. Supprimer une pizza");
+			System.out.println("99. Sortir");
+
+			// recueille le choix de l'utilisateur et exécute le service qui correspond
+			choixUtilisateur = Integer.parseInt(scanner.nextLine());
+			switch (choixUtilisateur) {
+			case 1:
+				ListerPizzaService listerService = new ListerPizzaService();
+				listerService.executeUC(scanner, dao);
+				break;
+			case 2:
+				AjouterPizzaService ajouterService = new AjouterPizzaService();
+				ajouterService.executeUC(scanner, dao);
+				break;
+			case 3:
+				ModifierPizzaService modifierService = new ModifierPizzaService();
+				modifierService.executeUC(scanner, dao);
+				break;
+			case 4:
+				SupprimerPizzaService supprimerService = new SupprimerPizzaService();
+				supprimerService.executeUC(scanner, dao);
+				break;
+			case 99:
+				System.out.println("Au revoir :-)");
+				break;
+			default:
+				System.out.println("Choix impossible. Merci de recommencer.");
+				break;
+			}
+		}
+		scanner.close();
 	}
 }
