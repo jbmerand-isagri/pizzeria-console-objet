@@ -5,6 +5,8 @@ package fr.diginamic.pizzeria.services;
 
 import java.util.Scanner;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import fr.diginamic.pizzeria.dao.IPizzaDao;
 import fr.diginamic.pizzeria.exception.SavePizzaException;
 import fr.diginamic.pizzeria.model.Pizza;
@@ -28,8 +30,11 @@ public class AjouterPizzaService extends MenuService {
 		System.out.println("Veuillez saisir le nom (sans espace) :");
 		String choixNom = scanner.nextLine();
 		System.out.println("Veuillez saisir le prix :");
-		Double choixPrix = Double.parseDouble(scanner.nextLine());
-		Pizza nouvellePizza = new Pizza(choixCode, choixNom, choixPrix);
+		String choixPrix = scanner.nextLine();
+		if (!NumberUtils.isParsable(choixPrix)) {
+			throw new SavePizzaException("Vous n'avez pas entré un prix correct.");
+		}
+		Pizza nouvellePizza = new Pizza(choixCode, choixNom, Double.parseDouble(choixPrix));
 		dao.saveNewPizza(nouvellePizza);
 		System.out.println("-> Pizza ajoutée.");
 

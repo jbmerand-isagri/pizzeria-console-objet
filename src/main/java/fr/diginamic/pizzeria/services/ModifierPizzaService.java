@@ -6,6 +6,8 @@ package fr.diginamic.pizzeria.services;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import fr.diginamic.pizzeria.dao.IPizzaDao;
 import fr.diginamic.pizzeria.exception.UpdateException;
 import fr.diginamic.pizzeria.model.Pizza;
@@ -40,9 +42,12 @@ public class ModifierPizzaService extends MenuService {
 			System.out.println("Veuillez saisir le nouveau nom (sans espace)");
 			String nouveauNom = scanner.nextLine();
 			System.out.println("Veuillez saisir le nouveau prix");
-			Double nouveauPrix = Double.parseDouble(scanner.nextLine());
+			String nouveauPrix = scanner.nextLine();
+			if (!NumberUtils.isParsable(nouveauPrix)) {
+				throw new UpdateException("Vous n'avez pas entré un prix correct.");
+			}
 			// création et envoie de la nouvelle pizza
-			Pizza nouvellePizza = new Pizza(nouveauCode, nouveauNom, nouveauPrix);
+			Pizza nouvellePizza = new Pizza(nouveauCode, nouveauNom, Double.parseDouble(nouveauPrix));
 			dao.updatePizza(choixCode, nouvellePizza);
 		}
 
