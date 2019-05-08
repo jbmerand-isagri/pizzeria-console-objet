@@ -3,6 +3,8 @@
  */
 package fr.diginamic.pizzeria.model;
 
+import fr.diginamic.pizzeria.utils.ToString;
+
 /**
  * Représente une pizza.
  * 
@@ -13,11 +15,14 @@ public class Pizza {
 
 	/** id : Integer pour authentifier la pizza (id unique) */
 	private Integer id;
-	/** code : String code unique de dénomination de la pizza */
+	/** code : String code d'identification de la pizza */
+	@ToString(separateur = "->", upperCase = true)
 	private String code;
 	/** libelle : String nom de la pizza */
+	@ToString(upperCase = false)
 	private String libelle;
 	/** prix : Double prix en € de la pizza */
+	@ToString(valorisation = "()")
 	private Double prix;
 	/** idCount : int compteur pour gérer les id */
 	private static int idCount = 0;
@@ -167,7 +172,8 @@ public class Pizza {
 
 	@Override
 	public String toString() {
-		return code + " -> " + libelle + "(" + prix + " €)" + ", catégorie : " + categorie.getNom() + ".";
+		return code.toUpperCase() + " -> " + libelle + " (" + prix + " €)" + ", catégorie : " + categorie.getNom()
+				+ ".";
 	}
 
 	@Override
