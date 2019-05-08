@@ -5,7 +5,7 @@ import java.util.Scanner;
 import fr.diginamic.pizzeria.dao.PizzaMemDao;
 import fr.diginamic.pizzeria.exception.DeletePizzaException;
 import fr.diginamic.pizzeria.exception.SavePizzaException;
-import fr.diginamic.pizzeria.exception.UpdateException;
+import fr.diginamic.pizzeria.exception.UpdatePizzaException;
 import fr.diginamic.pizzeria.services.AjouterPizzaService;
 import fr.diginamic.pizzeria.services.ListerPizzaService;
 import fr.diginamic.pizzeria.services.ModifierPizzaService;
@@ -63,7 +63,7 @@ public class PizzeriaAdminConsoleApp {
 				try {
 					ModifierPizzaService modifierService = new ModifierPizzaService();
 					modifierService.executeUC(scanner, dao);
-				} catch (UpdateException e) {
+				} catch (UpdatePizzaException e) {
 					System.out.println(e.getMessage());
 				}
 				break;

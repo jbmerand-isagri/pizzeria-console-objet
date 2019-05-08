@@ -9,6 +9,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import fr.diginamic.pizzeria.dao.IPizzaDao;
 import fr.diginamic.pizzeria.exception.SavePizzaException;
+import fr.diginamic.pizzeria.model.CategoriePizza;
 import fr.diginamic.pizzeria.model.Pizza;
 
 /**
@@ -34,7 +35,25 @@ public class AjouterPizzaService extends MenuService {
 		if (!NumberUtils.isParsable(choixPrix)) {
 			throw new SavePizzaException("Vous n'avez pas entré un prix correct.");
 		}
-		Pizza nouvellePizza = new Pizza(choixCode, choixNom, Double.parseDouble(choixPrix));
+		System.out.println(
+				"Veuillez saisir le numéro correspondant à sa catégorie (1.VIANDE / 2.POISSON / 3.SANS_VIANDE)");
+		String choixCategorie = scanner.nextLine();
+		if (!NumberUtils.isParsable(choixCategorie)) {
+			throw new SavePizzaException("Vous n'avez pas saisi une catégorie correcte.");
+		}
+		int choixCateInt = Integer.parseInt(choixCategorie);
+		if (choixCateInt > 3 || choixCateInt < 1) {
+			throw new SavePizzaException("Le numéro de catégorie saisi n'existe pas.");
+		}
+
+		// Initialisation par défault avec VIANDE
+		CategoriePizza categoChoisie = CategoriePizza.VIANDE;
+		if (choixCateInt == 2)
+			categoChoisie = CategoriePizza.POISSON;
+		else if (choixCateInt == 3)
+			categoChoisie = CategoriePizza.SANS_VIANDE;
+
+		Pizza nouvellePizza = new Pizza(choixCode, choixNom, Double.parseDouble(choixPrix), categoChoisie);
 		dao.saveNewPizza(nouvellePizza);
 		System.out.println("-> Pizza ajoutée.");
 

@@ -21,6 +21,8 @@ public class Pizza {
 	private Double prix;
 	/** idCount : int compteur pour gérer les id */
 	private static int idCount = 0;
+	/** categorie : CategoriePizza */
+	private CategoriePizza categorie;
 
 	/**
 	 * Constructor
@@ -28,12 +30,14 @@ public class Pizza {
 	 * @param code
 	 * @param libelle
 	 * @param prix
+	 * @param categorie
 	 */
-	public Pizza(String code, String libelle, Double prix) {
+	public Pizza(String code, String libelle, Double prix, CategoriePizza categorie) {
 		this.code = code;
 		this.libelle = libelle;
 		this.prix = prix;
 		this.id = Pizza.idCount++;
+		this.categorie = categorie;
 	}
 
 	/**
@@ -43,12 +47,14 @@ public class Pizza {
 	 * @param code
 	 * @param libelle
 	 * @param prix
+	 * @param categorie
 	 */
-	public Pizza(Integer id, String code, String libelle, Double prix) {
+	public Pizza(Integer id, String code, String libelle, Double prix, CategoriePizza categorie) {
 		this.id = id;
 		this.code = code;
 		this.libelle = libelle;
 		this.prix = prix;
+		this.categorie = categorie;
 	}
 
 	/**
@@ -63,8 +69,7 @@ public class Pizza {
 	/**
 	 * Setter
 	 * 
-	 * @param id
-	 *            the id to set
+	 * @param id the id to set
 	 */
 	public void setId(Integer id) {
 		this.id = id;
@@ -82,8 +87,7 @@ public class Pizza {
 	/**
 	 * Setter
 	 * 
-	 * @param code
-	 *            the code to set
+	 * @param code the code to set
 	 */
 	public void setCode(String code) {
 		this.code = code;
@@ -101,8 +105,7 @@ public class Pizza {
 	/**
 	 * Setter
 	 * 
-	 * @param libelle
-	 *            the libelle to set
+	 * @param libelle the libelle to set
 	 */
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
@@ -120,8 +123,7 @@ public class Pizza {
 	/**
 	 * Setter
 	 * 
-	 * @param prix
-	 *            the prix to set
+	 * @param prix the prix to set
 	 */
 	public void setPrix(Double prix) {
 		this.prix = prix;
@@ -139,16 +141,33 @@ public class Pizza {
 	/**
 	 * Setter
 	 * 
-	 * @param idCount
-	 *            the idCount to set
+	 * @param idCount the idCount to set
 	 */
 	public static void setIdCount(int idCount) {
 		Pizza.idCount = idCount;
 	}
 
+	/**
+	 * Getter
+	 * 
+	 * @return the categorie
+	 */
+	public CategoriePizza getCategorie() {
+		return categorie;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param categorie the categorie to set
+	 */
+	public void setCategorie(CategoriePizza categorie) {
+		this.categorie = categorie;
+	}
+
 	@Override
 	public String toString() {
-		return code + " -> " + libelle + "(" + prix + " €)";
+		return code + " -> " + libelle + "(" + prix + " €)" + ", catégorie : " + categorie.getNom() + ".";
 	}
 
 	@Override
@@ -160,6 +179,8 @@ public class Pizza {
 		if (getClass() != obj.getClass())
 			return false;
 		Pizza other = (Pizza) obj;
+		if (categorie != other.categorie)
+			return false;
 		if (code == null) {
 			if (other.code != null)
 				return false;

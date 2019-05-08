@@ -7,13 +7,13 @@ package fr.diginamic.pizzeria.exception;
  * @author Jean-Baptiste
  *
  */
-public class UpdateException extends StockageException {
+public class UpdatePizzaException extends StockageException {
 
 	/**
 	 * Constructor
 	 * 
 	 */
-	public UpdateException() {
+	public UpdatePizzaException() {
 	}
 
 	/**
@@ -21,7 +21,7 @@ public class UpdateException extends StockageException {
 	 * 
 	 * @param message
 	 */
-	public UpdateException(String message) {
+	public UpdatePizzaException(String message) {
 		super(message);
 	}
 
