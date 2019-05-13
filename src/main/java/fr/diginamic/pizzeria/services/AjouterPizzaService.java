@@ -25,6 +25,9 @@ public class AjouterPizzaService extends MenuService {
 		System.out.println("*** Ajout d'une nouvelle pizza ***");
 		System.out.println("Veuillez saisir le code :");
 		String choixCode = scanner.nextLine();
+		if (choixCode.equals("")) {
+			throw new SavePizzaException("Veuillez entrer une valeur.");
+		}
 		if (dao.pizzaExists(choixCode)) {
 			throw new SavePizzaException("Ce code est déjà utilisé pour une autre pizza.");
 		}
